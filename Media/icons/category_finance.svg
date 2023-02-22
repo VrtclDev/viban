@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+	version="1.1"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	x="0%" y="0%"
+	width="100%" height="100%"
+	viewBox="0 0 24.0 24.0"
+	enable-background="new 0 0 24.0 24.0"
+	xml:space="preserve">
+	<path
+		fill="#FFFFFF"
+		stroke="#000000"
+		fill-opacity="1.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.0"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M2.76,5.95L21.24,5.95A1.51 1.51 0 0 1 22.76,7.46L22.76,16.54A1.51 1.51 0 0 1 21.24,18.05L2.76,18.05A1.51 1.51 0 0 1 1.24,16.54L1.24,7.46A1.51 1.51 0 0 1 2.76,5.95zM12.00,7.79C9.67,7.79,7.79,9.67,7.79,12.00C7.79,14.33,9.67,16.21,12.00,16.21C14.33,16.21,16.21,14.33,16.21,12.00C16.21,9.67,14.33,7.79,12.00,7.79zM2.51,16.03L6.62,16.03L6.62,7.89L2.51,7.89zM17.38,16.03L21.41,16.03L21.41,7.97L17.38,7.97z"/>
+	<path
+		fill="#FFFFFF"
+		stroke="#FFFFFF"
+		fill-opacity="0.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.8066895"
+		stroke-linejoin="miter"
+		stroke-linecap="round"
+		d="M12.00,8.64L12.00,15.36"/>
+
+	<text 
+		font-size="8.610191"
+		font-family="default"
+		stroke-width="0.5162813"
+		stroke="#FFFFFF"
+		stroke-opacity="1.000"
+		fill-opacity="0"
+		text-anchor="start"
+  		transform="rotate(-0.0 11.999998 12.000003) scale(0.8589184 1.0)" >
+		<tspan x="11.415057" y="15.229003">S</tspan>
+	</text> 
+
+	<text 
+		font-size="8.610191"
+		font-family="default"
+		fill="#FFFFFF"
+		stroke-width="0"
+		fill-opacity="1.000"
+		text-anchor="start"
+  		transform="rotate(-0.0 11.999998 12.000003) scale(0.8589184 1.0)" >
+
+		<tspan x="11.415057" y="15.229003">S</tspan>
+	</text>
+</svg>

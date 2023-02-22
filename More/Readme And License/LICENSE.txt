@@ -1,0 +1,8 @@
+VerticalThings - BanTube / Open Source License
+
+-~-~-~-~-~-~-~
+
+The source of BanTube is open-source and free for anyone to remix, modify and edit
+
+For public releases of your modification, you must give some sort of Attribution/Credit to "VerticalThings"
+

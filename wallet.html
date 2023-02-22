@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ViBAN - Wallet</title>
+ 
+  <link rel="stylesheet" href="Style/styles.css">
+</head>
+<body>
+  <taskbar>
+    <img class="icon small" onclick="panel()" style="--source: url(../Media/icons/hamburger.svg)"/>
+    <img class="icon logo" style="--source: url(../Media/icons/viban.svg)"/>
+    <input type="text" placeholder="Search..."/>
+    <right>
+    <img class="icon" style="--source: url(../Media/icons/search.svg)"/>
+    <pfp></pfp>
+    </right>
+  </taskbar>
+  <sidepanel>
+    <acc>
+      <pfp></pfp>
+      <bl>
+      <p></p>
+      <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/><span>0.00</span> Ban</inf>
+      </bl>
+    </acc>
+    <a href="/feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)"/>Home</a>
+    <a href="/wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
+    <a href="/profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
+    <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)"/>Videos <caret></caret></a>
+    <dropdown class="videos">
+      <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)"/>All</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_gaming.svg)"/>Gaming</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_food.svg)"/>Food</a>
+      <a> <img class="icon" style="--source: url(../Media/icons/category_music.svg)"/>Music</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_finance.svg)"/>Finance</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)"/>Art</a>
+    </dropdown>
+  </sidepanel>
+
+  <pagedesktop>
+  <container class="type2 big">
+    <t class="big">Wallet</t><br>
+    <container class="type3">
+    <p>Balance</p>
+    <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/>0.00 banano</inf>
+    <flex>
+    <btn onclick="withdrawMenu(this, false)">Withdraw</btn>
+    <btn class="right" onclick="depositMenu()">Deposit</btn>
+    </flex>
+    </container><br>
+    <t class="big">Seed</t><br>
+    <container class="type3 small">
+    <p>Backup Options:</p>
+    <flex>
+    <btn onclick="copySeed()">Copy seed</btn>
+    <btn onclick="showSeed()">Show seed</btn>
+    </flex>
+    </container>
+  </container>
+  </pagedesktop>
+ <shadow></shadow>
+ <menu class="type1" id="errorMenu">
+  <ttl>An error has occured</ttl>
+  <p></p>
+  <br><br>
+  <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+  </menu>
+  <menu class="type1" id="depositMenu">
+  <ttl>Deposit</ttl>
+  <p>Your deposit address is:</p><br>
+  <seed>None Available</seed>
+  <br><br>
+  <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+  </menu>
+  <menu class="type1" id="withdrawMenu">
+    <ttl>Withdraw</ttl>
+    <flex>
+    <input type="text" class="text" placeholder="Ban_..."/>
+    <input type="number" class="num" placeholder="0.00" onchange   = "inputLimit(this);"
+      onkeypress = "this.onchange();"
+      onpaste    = "this.onchange();"
+      oninput    = "this.onchange();"/>
+    <p onclick="maxSend(this)">MAX</p>
+    </flex>
+    <br><br>
+    <btn class="type1" onclick="closeMenu(this)">Nope, forget it</btn>
+    <btn class="type1 white scnd" onclick="closeMenu(this); withdrawMenu(this, true)">Withdraw</btn>
+  </menu>
+  <menu class="type1" id="seedMenu">
+  <ttl>Seed</ttl>
+  <p>Your seed is:</p><br>
+  <seed>UNKNOWN</seed>
+  <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+  </menu>
+  <menu class="type1" id="copiedMenu">
+    <ttl>Copied to Clipboard</ttl>
+    <p>Your seed has been copied to Clipboard! please clear your clipboard after use</p><br>
+    <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+    </menu>
+</body>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/banano.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/videos.js"></script>
+</html>

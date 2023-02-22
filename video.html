@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ViBAN - Video</title>
+  <link rel="stylesheet" href="/Style/video.min.css">
+  <link rel="stylesheet" href="/Style/styles.css">
+  <script src="../Scripts/banano.js"></script>
+</head>
+  <body class="video">
+  <taskbar>
+    <img class="icon small" onclick="panel()" style="--source: url(../Media/icons/hamburger.svg)"/>
+    <img class="icon logo" style="--source: url(../Media/icons/viban.svg)"/>
+    <input type="text" placeholder="Search..."/>
+    <right>
+    <img class="icon" style="--source: url(../Media/icons/search.svg)"/>
+    <pfp></pfp>
+    </right>
+  </taskbar>
+  <sidepanel>
+    <acc>
+      <pfp></pfp>
+      <bl>
+      <p></p>
+      <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/><span>0.00</span> Ban</inf>
+      </bl>
+    </acc>
+    <a href="../feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)"/>Home</a>
+    <a href="../wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
+    <a href="../profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
+    <a href="../upload.html"><img class="icon" style="--source: url(../Media/icons/plus.svg)"/>Upload</a>
+    <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)"/>Videos <caret></caret></a>
+    <dropdown class="videos">
+      <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)"/>All</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_gaming.svg)"/>Gaming</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_food.svg)"/>Food</a>
+      <a> <img class="icon" style="--source: url(../Media/icons/category_music.svg)"/>Music</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_finance.svg)"/>Finance</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)"/>Art</a>
+    </dropdown>
+    <a href="../settings.html"><img class="icon" style="--source: url(../Media/icons/settings.svg)"/>Settings</a>
+    <a onclick="logout(false)"><img class="icon" style="--source: url(../Media/icons/logout.svg)"/>Logout</a>
+  </sidepanel>
+  <pagedesktop>
+  <container class="type2" id="not-found">
+    <t class="big">Error 404</t><br>
+    <inf>This video could not be found, try a different one?...</inf><br>
+    <a href="/feed.html">< Back to Home</a>
+  </container>
+  <container class="type2 hidden" id="video-container">
+    <video-js class="vjs-video vjs-big-play-centered" controls preload="auto">
+      <source type="video/mp4"/>
+    </video-js>
+    <desk>
+    <t class="videoTitle">Untitled</t>
+    <inf class="videoAuthorAndTime">- No One • 0 seconds ago</inf>
+    <flex>
+      <btn class="type2" onclick="shareVideo()">Share</btn>
+      <btn class="type2" onclick="reportVideo()">Report</btn>
+      <btn class="type2" onclick="tipVideo(false)">Tip</btn>
+    </flex>
+    <hr>
+    <inf class="videoDescription">No Description set..</inf>
+    <hr>
+    <p>Info:</p><br>
+    <inf>Post Hash:<p class="infoPostHash">None</p></inf><br>
+    <inf>Author:<p class="infoAuthor">None</p></inf><br>
+    <inf class="title"></inf>
+    <hr>
+    <t>Comments:</t>
+    <comments>
+      <flex>
+      <input type="text" id="comment_input" class="type1" placeholder="Comment..." onblur="closeEmoteList()" onfocus="openEmoteList(this)"/>
+      <btn class="type4" onclick="comment()"><img class="icon" style="--source:url(../Media/icons/send.svg)"/></btn></flex><br>
+      <p class="commentCount">0 Comments</p><br>
+      <comment id="comment" class="hidden">
+        <pfp></pfp>
+        <div>
+        <inf></inf>
+        <p></p>
+        </div>
+      </comment>
+    </comments>
+    </desk>
+  </container>
+  </pagedesktop>
+ <shadow></shadow>
+  <menu class="type1" id="tipVideo">
+    <ttl>Tip</ttl>
+    <input type="number"/>
+    <inf>Tipping <span class="amount"></span> BAN to <span class="author"></span></inf>
+    <btn class="type1" onclick="closeMenu(this)">Cancel</btn>
+    <btn class="type1 white scnd" onclick="tipVideo(true, this); closeMenu(this)">Tip</btn>
+  </menu>
+  <menu class="type1" id="errorMenu">
+    <ttl>An error has occured</ttl>
+    <p></p>
+    <br><br>
+    <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+  </menu>
+</body>
+<socials>
+    <a href="https://discord.gg/WAvdCWN6z3"><img src="../Media/icons/discord.svg" style="--source:url(../Media/icons/discord.svg)" class="emote"/></a>
+  </socials>
+  <emotelist>
+    <emotes></emotes>
+  </emotelist>
+  <menu class="type1" id="confirmLogout">
+    <ttl>Confirm</ttl>
+    <p>Are you sure you want to logout?</p>
+    <br><br>
+    <btn class="type1" onclick="closeMenu(this)">No</btn>
+    <btn class="type1 white scnd" onclick="closeMenu(this); logout(true)">Yes</btn>
+  </menu>
+<script src="../Scripts/emotes.js"></script>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/IPFS.js"></script>
+<script src="../Scripts/videos.js"></script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ViBAN - Wallet</title>
+ 
+  <link rel="stylesheet" href="Style/styles.css">
+</head>
+<body>
+  <taskbar>
+    <img class="icon small" onclick="panel()" style="--source: url(../Media/icons/hamburger.svg)"/>
+    <img class="icon logo" style="--source: url(../Media/icons/viban.svg)"/>
+    <input type="text" placeholder="Search..."/>
+    <right>
+    <img class="icon" style="--source: url(../Media/icons/search.svg)"/>
+    <pfp></pfp>
+    </right>
+  </taskbar>
+  <sidepanel>
+    <acc>
+      <pfp></pfp>
+      <bl>
+      <p></p>
+      <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/><span>0.00</span> Ban</inf>
+      </bl>
+    </acc>
+    <a href="/feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)"/>Home</a>
+    <a href="/wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
+    <a href="/profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
+    <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)"/>Videos <caret></caret></a>
+    <dropdown class="videos">
+      <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)"/>All</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_gaming.svg)"/>Gaming</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_food.svg)"/>Food</a>
+      <a> <img class="icon" style="--source: url(../Media/icons/category_music.svg)"/>Music</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_finance.svg)"/>Finance</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)"/>Art</a>
+    </dropdown>
+  </sidepanel>
+
+  <pagedesktop>
+  <container class="type2 big">
+    <pfp></pfp>
+    <t class="big">Profile</t><br>
+    <container class="type3">
+    <flex>
+      <pfp></pfp>
+    <div>
+    <p>ban_</p><br>
+    <inf>No Bio Set...</inf>
+    </div>
+    </flex><br>
+    <flex>
+    <btn onclick="editProfile(this, false)">Edit Profile</btn>
+    <btn class="right" onclick="depositMenu()">Reset</btn>
+    </flex>
+    </container><br>
+    </container>
+  </container>
+  </pagedesktop>
+ <shadow></shadow>
+ <menu class="type1" id="errorMenu">
+  <ttl>An error has occured</ttl>
+  <p></p>
+ </menu>
+</body>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/banano.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/videos.js"></script>
+</html>

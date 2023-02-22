@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ViBAN - Feed</title>
+  <script src="../Scripts/banano.js"></script>
+  <script src="../Scripts/menu.js"></script>
+  <link rel="stylesheet" href="Style/styles.css">
+</head>
+<body>
+  <taskbar>
+    <img class="icon small" onclick="panel()" style="--source: url(../Media/icons/hamburger.svg)"/>
+    <img class="icon logo" style="--source: url(../Media/icons/viban.svg)"/>
+    <input type="text" placeholder="Search..."/>
+    <right>
+    <img class="icon" style="--source: url(../Media/icons/search.svg)"/>
+    <pfp></pfp>
+    </right>
+  </taskbar>
+  <sidepanel>
+    <acc>
+      <pfp></pfp>
+      <bl>
+      <p></p>
+      <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/><span>0.00</span> Ban</inf>
+      </bl>
+    </acc>
+    <a href="../feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)"/>Home</a>
+    <a href="../wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
+    <a href="../profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
+    <a href="../upload.html"><img class="icon" style="--source: url(../Media/icons/plus.svg)"/>Upload</a>
+    <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)"/>Videos <caret></caret></a>
+    <dropdown class="videos">
+      <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)"/>All</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_gaming.svg)"/>Gaming</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_food.svg)"/>Food</a>
+      <a> <img class="icon" style="--source: url(../Media/icons/category_music.svg)"/>Music</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_finance.svg)"/>Finance</a>
+      <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)"/>Art</a>
+    </dropdown>
+    <a href="../settings.html"><img class="icon" style="--source: url(../Media/icons/settings.svg)"/>Settings</a>
+    <a onclick="logout(false)"><img class="icon" style="--source: url(../Media/icons/logout.svg)"/>Logout</a>
+  </sidepanel>
+  <pagedesktop>
+  <container class="type2">
+    <t class="big">Upload Video</t><br>
+    <input type="text" id="video-title" placeholder="Video Title..."/><br><br>
+    <textarea id="video-description" placeholder="Description..."></textarea>
+    <hr><br>
+    <label class="btn">
+      <input onchange="changeFile(this)" type="file" id="video-file" accept="video/*"/>
+      <span>Add Video</span>
+      <p>+</p>
+    </label><br>
+    <label class="btn">
+      <input onchange="changeFile(this)"type="file" id="thumbnail-file" accept="image/*"/>
+      <span>Add Thumbnail</span>
+      <p>+</p>
+    </label><br>
+    <btn class="type1 white" onclick="uploadVideo()">Upload</btn><br>
+    <p>Progress: <span id="progress">None</span></p>
+  </container>
+  </pagedesktop>
+  <socials>
+    <a href="https://discord.gg/WAvdCWN6z3"><img src="../Media/icons/discord.svg" style="--source:url(../Media/icons/discord.svg)" class="emote"/></a>
+  </socials>
+ <shadow></shadow>
+</body>
+<menu class="type1" id="errorMenu">
+    <ttl>An error has occured</ttl>
+    <p></p>
+    <br><br>
+    <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+  </menu>
+<script src="../Scripts/IPFS.js"></script>
+<script src="../Scripts/emotes.js"></script>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/socket.io.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/videos.js"></script>
+</html>

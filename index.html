@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ViBAN - Authenticate</title>
+  <link rel="stylesheet" href="Style/styles.css">
+</head>
+<script>
+  if (window.localStorage.getItem("seed") != "" && window.localStorage.getItem("seed") != null) {
+    window.location.href = "/feed.html"
+  }
+</script>
+<body class="imaged">
+  <pagetitle>Welcome to ViBAN<br><text>A new world..</text></pagetitle>
+  <container class="type1">
+    <btn class="type1 white" onclick="accountMenu()">Create a fresh account</btn>
+    <inf>Or alternatively, you could..</inf>
+    <btn class="type1" onclick="openMenu('#importAcc')">Import account</btn><br>
+    <a href="/faq.html">What is this?</a>
+  </container>
+ <shadow></shadow>
+  <menu class="type1" id="createAcc">
+    <ttl>Safety first</ttl>
+    <seed></seed>
+    <inf>The seed is the key to your account, it's not stored anywhere on the server, don't lose it, or else you won't recover the account...</inf>
+    <inf></inf>
+    <btn class="type1" onclick="closeMenu(this)">Nope, forget it</btn>
+    <btn class="type1 white scnd" onclick="createAccount(this); closeMenu(this)">I wrote it down!</btn>
+  </menu>
+  <menu class="type1" id="importAcc">
+    <ttl>Enter your backed up Seed</ttl>
+    <input type="text" placeholder="Seed"/>
+    <br><br>
+    <inf>We care about your security, information like seeds are stored client-side in localstorahe</inf>
+    <btn class="type1" onclick="closeMenu(this)">Nope, forget it</btn>
+    <btn class="type1 white scnd" onclick="closeMenu(this); importAccount(this, true)">Done!</btn>
+  </menu>
+  <menu class="type1" id="confirmImport">
+    <ttl>Is this your monkey?</ttl>
+    <img/>
+    <br><br>
+    <btn class="type1" onclick="closeMenu(this)">No</btn>
+    <btn class="type1 white scnd" onclick="closeMenu(this); importAccount(this, false)">Yes it is!</btn>
+  </menu>
+  <script src="main.js"></script>
+  <menu class="type1" id="errorMenu">
+    <ttl>An error has occured</ttl>
+    <p></p>
+    <br><br>
+    <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
+  </menu>
+</body>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/banano.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/account.js"></script>
+</html>

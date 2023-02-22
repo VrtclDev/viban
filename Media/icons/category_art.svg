@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+	version="1.1"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	x="0%" y="0%"
+	width="100%" height="100%"
+	viewBox="0 0 24.0 24.0"
+	enable-background="new 0 0 24.0 24.0"
+	xml:space="preserve">
+	<path
+		fill="#FFFFFF"
+		stroke="#000000"
+		fill-opacity="1.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.0"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M6.78,15.70C7.99,15.70,8.98,16.68,8.98,17.90C8.98,19.12,7.99,20.10,6.78,20.10C5.56,20.10,4.58,19.12,4.58,17.90C4.58,16.68,5.56,15.70,6.78,15.70z"/>
+	<path
+		fill="#FFFFFF"
+		stroke="#000000"
+		fill-opacity="1.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.0"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M10.78,15.70C11.99,15.70,12.98,16.68,12.98,17.90C12.98,19.12,11.99,20.10,10.78,20.10C9.56,20.10,8.58,19.12,8.58,17.90C8.58,16.68,9.56,15.70,10.78,15.70z"/>
+	<path
+		fill="#FFFFFF"
+		stroke="#000000"
+		fill-opacity="1.000"
+		stroke-opacity="1.000"
+		fill-rule="nonzero"
+		stroke-width="0.0"
+		stroke-linejoin="miter"
+		stroke-linecap="square"
+		d="M8.88,3.90C10.04,3.90,10.98,7.30,10.98,11.50C10.98,15.70,10.04,19.10,8.88,19.10C7.72,19.10,6.78,15.70,6.78,11.50C6.78,7.30,7.72,3.90,8.88,3.90z"/> 
+
+	<text 
+		font-size="3.322123"
+		font-family="default"
+		fill="#FFFFFF"
+		stroke-width="0"
+		fill-opacity="1.000"
+		text-anchor="start"
+  		transform="rotate(-0.0 15.777191 9.899733) scale(0.8903907 1.0)" >
+
+		<tspan x="13.624403" y="11.145734">Benis</tspan>
+	</text>
+</svg>
