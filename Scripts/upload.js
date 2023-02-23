@@ -64,7 +64,7 @@ async function uploadPost(ins, type) {
     }
   }
   console.log("Uploaded to "+type)
-  return withdrawBanano(links[type], 0.00000000000000000000000000001)
+  return withdrawRawBanano(links[type], 1)
 }
 async function uploadComment(ins, post) {
   for (i in ins) {
