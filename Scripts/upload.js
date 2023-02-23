@@ -76,8 +76,7 @@ async function uploadComment(ins, post) {
     }
   }
   post = banano.getBananoAccount(post)
-  var upload = await withdrawBanano(post, 0.00000000000000000000000000001)
-  console.log(upload)
+  var upload = await withdrawRawBanano(post, 1)
 }
 function val(q) {
   return document.body.querySelector(q).value
@@ -107,6 +106,7 @@ async function uploadVideo() {
   }
   vidCid = vidCid["path"]
   tnCid = tnCid["path"]
+  console.log(vidCid, tnCid)
   sel("#progress").innerText = "Uploading Post To Banano Blockchain..."
   await uploadPost(makeVideo(title, desc, vidCid, tnCid), "video")
   sel("#progress").innerText = "Video Uploaded!"
