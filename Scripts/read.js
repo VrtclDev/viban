@@ -9,10 +9,18 @@ cmdsInv["F7"] = "⇜type:comment⇜comment:"
 cmdsInv["F8"] = "⇜type:profile"
 cmdsInv["F9"] = "⇜type:tuit⇜title:"
 cmdsInv["FA"] = "⇜nsfw:true"
+var blacklist = ["0A1888CBF6AF03724E13D29CF6B2A62C0225B175B35E6C5822A60FAE03ABA5D7"]
 function getPosts(acc) {
   let promise = new Promise(function(resolve, reject) {
     banano.getAccountsPending([acc], -1).then(b => {
-    resolve(Object.keys(b["blocks"][acc]))
+    var hashes = Object.keys(b["blocks"][acc])
+    var data = []
+    for (i in hashes) {
+      if (!blacklist.includes(hashes[i])) {
+        data.push(hashes[i])
+      }
+    }
+    resolve(data)
     })
   })
   return promise

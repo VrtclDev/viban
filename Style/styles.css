@@ -728,6 +728,10 @@ textarea {
   height:12rem;
   resize:none;
 }
+cntr {
+  display:flex;
+  justify-content:center;
+}
 *::placeholder {
   color:var(--light-text);
 }

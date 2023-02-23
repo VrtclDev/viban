@@ -1,8 +1,8 @@
 var root = document.querySelector(":root")
 var themes = {
   "default": [
-    "--background:#000F20",
-    "--background-2:#001934",
+    "--background:#0E1420",
+    "--background-2:#202838",
     "--light-text:#95AAC6",
     "--text:#DEECFF",
     "--timebg:#121212",

@@ -21,7 +21,13 @@ function ipfsLink(e) {
   return `https://ipfs.io/ipfs/${e}`
 }
 async function setVideo(json) {
-  await Video.currentSrc(ipfsLink(json["video"]))
+  if (blacklist.includes(json["hash"])) {
+    return
+  }
+  await Video.src({
+    src:ipfsLink(json["video"]),
+    type:"video/mp4"
+  })
   setText(".videoTitle",json["title"])
   document.querySelector("title").innerText = "ViBAN - "+ decodeSpecial(json["title"])
   setText(".videoDescription", json["description"])
@@ -32,7 +38,6 @@ async function setVideo(json) {
   sel("#not-found").classList.add("hidden")
   document.body.classList.remove("imaged")
   getComments(json["hash"]).then(c => {
-    console.log(c)
     sel(".commentCount").innerText = c.length + " Comment"
     if (c.length > 0) {
       sel(".commentCount").innerText = c.length + " Comments"
@@ -122,18 +127,22 @@ function comment() {
     comment.value=""
   }
 }
-var videoIndex = 0
+var vidIndex = 0
 async function loadVideos() {
+  sel("#loadMore").className = "type2 hidden"
   var p = await getPosts(links["video"])
+  p = p.slice(vidIndex, vidIndex+5)
   for (ee in p) {
-    if (ee == 10) {
-      return
-    }
     var post = await getPostFromHash(p[ee])
     if (post["type"] == "video") {
       loadVideoFeed(post)
     }
   }
+  if (p.length < 5) {
+    return
+  }
+  vidIndex += 5
+  sel("#loadMore").className = "type2"
 }
 function openVideo(t) {
   var hash = t.parentNode.getAttribute("hash")
