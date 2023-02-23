@@ -86,8 +86,9 @@ inf, a {
   display:block;
 }
 btn {
-  display:grid;
-  place-items:center;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
   transition:.15s;
 }
 btn.type1, input[type=text], input[type=number], textarea, label.btn {
@@ -116,9 +117,15 @@ btn.type1:active, label.btn:active {
   transform:scale(0.95);
 }
 container.type1 {
-  display:block;
+  display:grid;
   margin-top:3rem;
-  text-align:center;
+  width:100%;
+  place-items:center
+}
+container.type1 btn {
+  margin:0;
+  right:calc(50% - 1rem);
+  max-width:20rem;
 }
 container.type1 inf {
   display:block;
