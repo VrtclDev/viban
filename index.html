@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ViBAN - Authenticate</title>
+  <title>ViBAN - Get Started</title>
+  <meta content="ViBAN is a decentralized open-source on-chain Social Media based on banano" property="og:description" />
+  <meta content="../Media/icons/viban-512.png" property="og:image" />
+  <meta content="#202838" data-react-helmet="true" name="theme-color"/>
   <link rel="stylesheet" href="Style/styles.css">
 </head>
 <script>
@@ -12,19 +15,33 @@
     window.location.href = "/feed.html"
   }
 </script>
+<script src="../Scripts/important.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/banano.js"></script>
+<script src="../Scripts/emotes.js"></script>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/IPFS.js"></script>
+<script src="../Scripts/videos.js"></script>
+<script src="../Scripts/init.js"></script>
+
 <body>
-  <pagetitle>Welcome to ViBAN<br><text>A new world..</text></pagetitle>
+<pagetitle>Welcome to ViBAN<br><text>A new world..</text></pagetitle>
   <container class="type1">
     <btn class="type1 white" onclick="accountMenu()">Create a fresh account</btn>
     <inf>Or alternatively, you could..</inf>
     <btn class="type1" onclick="openMenu('#importAcc')">Import account</btn><br>
-    <a href="/faq.html">What is this?</a>
+    <a href="/feed.html">Continue As Guest</a>
   </container>
  <shadow></shadow>
   <menu class="type1" id="createAcc">
     <ttl>Safety first</ttl>
     <seed></seed>
-    <inf>The seed is the key to your account, it's not stored anywhere on the server, don't lose it, or else you won't recover the account...</inf>
+    <inf>The seed is the key to your account, don't lose it, or else you won't recover the account...</inf>
     <inf></inf>
     <btn class="type1" onclick="closeMenu(this)">Nope, forget it</btn>
     <btn class="type1 white scnd" onclick="createAccount(this); closeMenu(this)">I wrote it down!</btn>
@@ -52,11 +69,4 @@
     <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
   </menu>
 </body>
-<script src="../Scripts/theme.js"></script>
-<script src="../Scripts/banano.js"></script>
-<script src="../Scripts/menu.js"></script>
-<script src="../Scripts/encoder-decoder.js"></script>
-<script src="../Scripts/upload.js"></script>
-<script src="../Scripts/read.js"></script>
-<script src="../Scripts/account.js"></script>
 </html>

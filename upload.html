@@ -5,11 +5,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>ViBAN - Feed</title>
+  <title>ViBAN - Upload</title>
+  <meta content="ViBAN is a decentralized open-source on-chain Social Media based on banano" property="og:description" />
+  <meta content="../Media/icons/viban-512.png" property="og:image" />
+  <meta content="#202838" data-react-helmet="true" name="theme-color"/>
+  <link rel="stylesheet" href="Style/styles.css">
   <script src="../Scripts/banano.js"></script>
   <script src="../Scripts/menu.js"></script>
   <link rel="stylesheet" href="Style/styles.css">
 </head>
+<script src="../Scripts/important.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/banano.js"></script>
+<script src="../Scripts/emotes.js"></script>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/IPFS.js"></script>
+<script src="../Scripts/videos.js"></script>
+<script src="../Scripts/init.js"></script>
 <body>
   <taskbar>
     <img class="icon small" onclick="panel()" style="--source: url(../Media/icons/hamburger.svg)"/>
@@ -21,17 +38,22 @@
     </right>
   </taskbar>
   <sidepanel>
-    <acc>
+    <acc class="notloggedin">
+      <p>Not Logged In...</p>
+      <a href="/">Login/Register</a>
+    </acc>
+    <acc class="loggedin hidden">
       <pfp></pfp>
       <bl>
-      <p></p>
+      <p>ban_</p>
       <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/><span>0.00</span> Ban</inf>
       </bl>
     </acc>
+    <pages>
     <a href="../feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)"/>Home</a>
-    <a href="../wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
-    <a href="../profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
-    <a href="../upload.html"><img class="icon" style="--source: url(../Media/icons/plus.svg)"/>Upload</a>
+    <a class="loggedin" href="../wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
+    <a class="loggedin" href="../profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
+    <a class="loggedin" href="../upload.html"><img class="icon" style="--source: url(../Media/icons/plus.svg)"/>Upload</a>
     <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)"/>Videos <caret></caret></a>
     <dropdown class="videos">
       <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)"/>All</a>
@@ -42,14 +64,16 @@
       <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)"/>Art</a>
     </dropdown>
     <a href="../settings.html"><img class="icon" style="--source: url(../Media/icons/settings.svg)"/>Settings</a>
-    <a onclick="logout(false)"><img class="icon" style="--source: url(../Media/icons/logout.svg)"/>Logout</a>
+    <a class="loggedin" onclick="logout(false)"><img class="icon" style="--source: url(../Media/icons/logout.svg)"/>Logout</a>
+    </pages>
   </sidepanel>
   <pagedesktop>
   <container class="type2">
     <t class="big">Upload Video</t><br>
     <input type="text" id="video-title" placeholder="Video Title..."/><br><br>
     <textarea id="video-description" placeholder="Description..."></textarea>
-    <hr><br>
+    <hr>
+    <t>IPFS</t><br>
     <label class="btn">
       <input onchange="changeFile(this)" type="file" id="video-file" accept="video/*"/>
       <span>Add Video</span>
@@ -59,8 +83,11 @@
       <input onchange="changeFile(this)"type="file" id="thumbnail-file" accept="image/*"/>
       <span>Add Thumbnail</span>
       <p>+</p>
-    </label><br>
-    <btn class="type1 white" onclick="uploadVideo()">Upload</btn><br>
+    </label><hr>
+    <t>External</t><br>
+    <input type="text" placeholder="(https://) Raw Video or Youtube Link"/><br><br><br>
+    <input type="text" placeholder="(https://) Raw Image"/><br><hr><br>
+    <btn class="type1 white" onclick="uploadVideo()">Upload</btn><br><br>
     <p>Progress: <span id="progress">None</span></p>
   </container>
   </pagedesktop>
@@ -75,14 +102,4 @@
     <br><br>
     <btn class="type1 big" onclick="closeMenu(this)">Okay</btn>
   </menu>
-<script src="../Scripts/IPFS.js"></script>
-<script src="../Scripts/emotes.js"></script>
-<script src="../Scripts/theme.js"></script>
-<script src="../Scripts/socket.io.js"></script>
-<script src="../Scripts/video.min.js"></script>
-<script src="../Scripts/encoder-decoder.js"></script>
-<script src="../Scripts/account.js"></script>
-<script src="../Scripts/upload.js"></script>
-<script src="../Scripts/read.js"></script>
-<script src="../Scripts/videos.js"></script>
 </html>

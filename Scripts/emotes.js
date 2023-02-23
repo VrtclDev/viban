@@ -48,17 +48,17 @@ function convertEmote(e) {
   )
   }
 }
-var emlist = document.body.querySelector("emotelist")
-var emoteListHTML = ""
-for (key in emotes) {
-  emoteListHTML += `<a onmousedown='return false' onclick='inputEmote(this)' emote="${emotes[key].split(".")[0]}">${key}</a>`
+function initEmotes() {
+  var emlist = document.body.querySelector("emotelist")
+  var emoteListHTML = ""
+  for (key in emotes) {
+    emoteListHTML += `<a onmousedown='return false' onclick='inputEmote(this)' emote="${emotes[key].split(".")[0]}">${key}</a>`
+  }
+  try {
+    document.body.querySelector("emotelist emotes").innerHTML = emoteListHTML
+  } catch {}
+  convertEmote(document.body)
 }
-try {
-  document.body.querySelector("emotelist emotes").innerHTML = emoteListHTML
-} catch {
-  
-}
-convertEmote(document.body)
 function inputEmote(em) {
   var e = `:${em.getAttribute("emote")}:`
   var t = em.parentNode.parentNode.getAttribute("target")

@@ -351,11 +351,10 @@ sidepanel t {
 sidepanel.open {
   right:calc(100% - min(75%, 16rem));
 }
-sidepanel a {
+sidepanel pages a {
   display:flex;
   width:calc(100%) - 1.35rem;
   height:3rem;
-  
   padding-left:1.35rem;
   align-items:center;
   color:var(--text);
@@ -367,6 +366,9 @@ sidepanel acc {
   align-items:center;
   gap:.5rem
 }
+sidepanel acc.notloggedin {
+  display:block;
+}
 sidepanel bl {
   display:block;
 }
@@ -376,6 +378,10 @@ sidepanel acc pfp {
   min-width:4rem;
   height:4rem;
   background-position:center;
+}
+sidepanel acc.notloggedin {
+  margin-left:1.5rem;
+  margin-top:1.25rem;
 }
 sidepanel a img.icon {
   display:block;
@@ -409,7 +415,7 @@ sidepanel dropdown a {
   width:calc(100% - 2.5rem);
   margin-left:2.5rem;
 }
-sidepanel acc p {
+sidepanel acc.loggedin p {
   max-width:27%;
   display:block;
   overflow:hidden;
@@ -488,6 +494,7 @@ hr {
   margin-top:.75rem;
   margin-bottom:.75rem;
   background:var(--accent);
+  width:95%;
   border:solid .25px var(--accent);
 }
 desk {
@@ -734,6 +741,9 @@ textarea {
   width:90%;
   height:12rem;
   resize:none;
+}
+iframe {
+  border:0;
 }
 cntr {
   display:flex;

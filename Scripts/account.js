@@ -8,18 +8,29 @@ function genSeed() {
 var seed = window.localStorage.getItem("seed")
 var adr
 var bal = 0.00
-function setupInfo() {
-  if (seed == null) {
+function login() {
+  if (seed == null || seed.length != 64) {
+    document.body.querySelectorAll("a.loggedin").forEach(a => {
+      a.className = "hidden"
+    })
+    sel("taskbar pfp").className = "hidden"
     return
   }
+  sel("acc.notloggedin").className = "hidden"
+  sel("acc.loggedin").className = "loggedin"
   banano.getBananoAccountFromSeed(seed, 0).then(d => {
     adr = d
     try {
       updatePanel(true)
     } catch {}
   });
+  updateInfo()
+  setInterval(function() {
+  receiveBananoDeposits().then(d => {
+    updateInfo(d)
+  })
+}, 10000)
 }
-setupInfo()
 function updateInfo(d=null) {
   if (seed == null) {
     return
@@ -64,7 +75,7 @@ function createAccount() {
 
 function updatePanel(updateBalance) {
   try {
-  sel("sidepanel acc p").innerText = adr
+  sel("acc.loggedin p").innerText = adr
   if (updateBalance) {
   banano.getAccountInfo(adr, true).then(inf => {
   if (inf["error"] != null) {
@@ -76,8 +87,9 @@ function updatePanel(updateBalance) {
   }
 })}}
   catch {
-    sel("sidepanel acc p").innerText = adr
-    sel("sidepanel acc inf span").innerText = "0.00"
+    console.log("he")
+    sel("acc.loggedin p").innerText = adr
+    sel("acc.loggedin inf span").innerText = "0.00"
     return
   }
 }
@@ -115,15 +127,6 @@ const withdrawRawBanano = async (withdrawAccount, withdrawAmount) => {
     withdrawAmount
   );
 };
-updateInfo()
-setInterval(function() {
-  receiveBananoDeposits().then(d => {
-    updateInfo(d)
-  })
-}, 10000)
-function sel(e) {
-  return document.body.querySelector(e)
-}
 function logout(confirm) {
   if (confirm) {
     window.localStorage.setItem("seed", "")

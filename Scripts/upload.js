@@ -1,9 +1,3 @@
-var links = {
-  video:"ban_1uideosbeta1o1o1o1o46z6937z1111111111111111111111111yyp79bw8",
-  tuit:"ban_1tuit11111111111111111111111111111111111111111111111sz1es33f",
-  profile:"ban_1profi1etestbeta838174916311111111111111111111111111u98rzn6m",
-  livechat:"ban_1chat11111111111111111111111111111111111111111111111sj7bxfq1"
-}
 function makeVideo(title, desc, url, thumbnail, nsfw) {
   var ins = []
   ins = ins.concat("F6" + encodeMsg(url) + tryM("F1" + encodeMsg(title)) + tryM("F2" + encodeMsg(desc)) + tryM("F3" + encodeMsg(thumbnail)))
@@ -81,13 +75,8 @@ async function uploadComment(ins, post) {
 function val(q) {
   return document.body.querySelector(q).value
 }
-let IPFS
-let repopath = Math.random()
-async function initIPFS() {
-  IPFS = await window.IpfsCore.create()
-}
-initIPFS()
 async function uploadVideo() {
+  const IPFS = await  window.IpfsCore.create()
   var thumbnail = sel("#thumbnail-file").files[0]
   var video = sel("#video-file").files[0]
   var title = sel("#video-title").value

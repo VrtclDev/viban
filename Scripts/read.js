@@ -13,7 +13,12 @@ var blacklist = ["0A1888CBF6AF03724E13D29CF6B2A62C0225B175B35E6C5822A60FAE03ABA5
 function getPosts(acc) {
   let promise = new Promise(function(resolve, reject) {
     banano.getAccountsPending([acc], -1).then(b => {
-    var hashes = Object.keys(b["blocks"][acc])
+    var hashes = []
+    for (i in b["blocks"][acc]) {
+      if (b["blocks"][acc][i] == 1) {
+        hashes.push(i)
+      }
+    }
     var data = []
     for (i in hashes) {
       if (!blacklist.includes(hashes[i])) {
@@ -52,7 +57,10 @@ const getProfile = async (acc) => {
 const getComments = (hash) => {
   let promise = new Promise(async function(resolve, reject) {
     var acc = banano.getBananoAccount(hash)
-    var h = await banano.getAccountsPending([acc], "10")
+    var h = await banano.getAccountsPending([acc], "-1")
+    if (keys.length == 0) {
+      return
+    }
     var keys = Object.keys(h["blocks"][acc])
     var res = []
     for (i in keys) {

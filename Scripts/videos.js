@@ -1,5 +1,5 @@
 var Video
-async function setupVideojs() {
+async function initVjs() {
 if (document.body.className.includes("video")) {
   Video = videojs(sel("video-js"), {
     preload:"auto"
@@ -8,7 +8,6 @@ if (document.body.className.includes("video")) {
   await initVid()
 }
 }
-setupVideojs()
 function shareVideo() {
   var shareData = {
     title: 'Hello!',
@@ -24,10 +23,16 @@ async function setVideo(json) {
   if (blacklist.includes(json["hash"])) {
     return
   }
-  await Video.src({
-    src:ipfsLink(json["video"]),
-    type:"video/mp4"
-  })
+  if (typeOfVid(json["video"]) == 2) {
+    sel("#youtube-frame").setAttribute("src", convertYTURL(json["video"]))
+    sel("video-js").className = "hidden"
+    sel("#youtube-frame").className = "vjs-video"
+  } else {
+    await Video.src({
+      src:ipfsLink(json["video"]),
+      type:"video/mp4"
+    })
+  }
   setText(".videoTitle",json["title"])
   document.querySelector("title").innerText = "ViBAN - "+ decodeSpecial(json["title"])
   setText(".videoDescription", json["description"])
@@ -51,6 +56,7 @@ async function setVideo(json) {
       console.log(author)
       comment.querySelector("inf").innerText = `• ${author.substring(0, 11)+"..."} - ${timeSince(timestamp)}`
       sel("comments").append(comment)
+      
       comment.querySelector("pfp").style.backgroundImage = `url(https://monkey.banano.cc/api/v1/monkey/${author})`
     }
   })
@@ -63,8 +69,10 @@ function loadVideoFeed(json, filter) {
   setText(vid.querySelector("t"), json["title"])
   vid.querySelector("inf").innerText = `• ${json["author"].substring(0, 11)+"..."} - ${timeSince(json["timestamp"])}`
   if (json["thumbnail"] != undefined) {
-  vid.querySelector("thumbnail").style.backgroundImage = `url(${ipfsLink(json["thumbnail"])})`
-  console.log(json["thumbnail"])
+  
+  var tn = ipfsLink(json["thumbnail"]).picture
+  vid.querySelector("thumbnail").style.backgroundImage = tn
+  console.log(vid.querySelector("thumbnail").style.backgroundImage)
   vid.querySelector("thumbnail").style.backgroundSize = "contain"
   }
   vid.setAttribute("hash", json["hash"])
@@ -129,11 +137,14 @@ function comment() {
 }
 var vidIndex = 0
 async function loadVideos() {
+  if (!document.body.className.includes("feed")) {
+    return
+  }
   sel("#loadMore").className = "type2 hidden"
   var p = await getPosts(links["video"])
-  p = p.slice(vidIndex, vidIndex+5)
-  for (ee in p) {
-    var post = await getPostFromHash(p[ee])
+  pe = p.slice(vidIndex, vidIndex+5)
+  for (e in pe) {
+    var post = await getPostFromHash(pe[e])
     if (post["type"] == "video") {
       loadVideoFeed(post)
     }
@@ -148,9 +159,6 @@ function openVideo(t) {
   var hash = t.parentNode.getAttribute("hash")
   window.location.href = `../video.html?video=${hash}`
 }
-if (document.body.className.includes("feed")) {
-  loadVideos()
-}
 function tipVideo(isDone, b) {
   if (!isDone) {
     openMenu("#tipVideo")
@@ -163,5 +171,30 @@ function setText(e, t) {
   } else {
     e.innerText = decodeSpecial(t)
     convertEmote(e)
+  }
+}
+const videoTypes = ["raw", "ipfs", "yt"]
+function typeOfVid(vid) {
+  try {
+    vid = new URL(vid)
+  } catch {
+    return 1
+  }
+  if (vid["hostname"] == "youtube.com" || vid["hostname"] == "youtu.be") {
+    return 2
+  } else {
+    return 0
+  }
+}
+function convertYTURL(u) {
+  var url = new URL(u)
+  var yt = "https://youtube.com/embed/"
+  if (url.hostname == "youtu.be") {
+    return yt+url.pathname.replace("/", "")
+  } else {
+    if (url.pathname.startsWith("/shorts")) {
+      return yt+url.pathname.split("/")[2]
+    }
+    return yt+url.searchParams.get("v")
   }
 }

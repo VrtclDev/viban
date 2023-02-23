@@ -9,6 +9,18 @@
  
   <link rel="stylesheet" href="Style/styles.css">
 </head>
+<script src="../Scripts/banano.js"></script>
+<script src="../Scripts/emotes.js"></script>
+<script src="../Scripts/theme.js"></script>
+<script src="../Scripts/video.min.js"></script>
+<script src="../Scripts/encoder-decoder.js"></script>
+<script src="../Scripts/account.js"></script>
+<script src="../Scripts/upload.js"></script>
+<script src="../Scripts/read.js"></script>
+<script src="../Scripts/menu.js"></script>
+<script src="../Scripts/IPFS.js"></script>
+<script src="../Scripts/videos.js"></script>
+<script src="../Scripts/init.js"></script>
 <body>
   <taskbar>
     <img class="icon small" onclick="panel()" style="--source: url(../Media/icons/hamburger.svg)"/>
@@ -19,28 +31,36 @@
     <pfp></pfp>
     </right>
   </taskbar>
-  <sidepanel>
-    <acc>
+<sidepanel>
+    <acc class="notloggedin">
+      <p>Not Logged In...</p>
+      <a href="/">Login/Register</a>
+    </acc>
+    <acc class="loggedin hidden">
       <pfp></pfp>
       <bl>
-      <p></p>
-      <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)"/><span>0.00</span> Ban</inf>
+        <p>ban_</p>
+        <inf><img class="icon" style="--source: url(../Media/icons/banano.svg)" /><span>0.00</span> Ban</inf>
       </bl>
     </acc>
-    <a href="/feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)"/>Home</a>
-    <a href="/wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)"/>Wallet</a>
-    <a href="/profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)"/>Profile</a>
-    <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)"/>Videos <caret></caret></a>
-    <dropdown class="videos">
-      <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)"/>All</a>
-      <a><img class="icon" style="--source: url(../Media/icons/category_gaming.svg)"/>Gaming</a>
-      <a><img class="icon" style="--source: url(../Media/icons/category_food.svg)"/>Food</a>
-      <a> <img class="icon" style="--source: url(../Media/icons/category_music.svg)"/>Music</a>
-      <a><img class="icon" style="--source: url(../Media/icons/category_finance.svg)"/>Finance</a>
-      <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)"/>Art</a>
-    </dropdown>
+    <pages>
+      <a href="../feed.html"><img class="icon" style="--source: url(../Media/icons/home.svg)" />Home</a>
+      <a class="loggedin" href="../wallet.html"><img class="icon" style="--source: url(../Media/icons/wallet.svg)" />Wallet</a>
+      <a class="loggedin" href="../profile.html"><img class="icon" style="--source: url(../Media/icons/profile.svg)" />Profile</a>
+      <a class="loggedin" href="../upload.html"><img class="icon" style="--source: url(../Media/icons/plus.svg)" />Upload</a>
+      <a class="videos" onclick="dropdown(this)"><img class="icon" style="--source: url(../Media/icons/video.svg)" />Videos <caret></caret></a>
+      <dropdown class="videos">
+        <a><img class="icon" style="--source: url(../Media/icons/category_all.svg)" />All</a>
+        <a><img class="icon" style="--source: url(../Media/icons/category_gaming.svg)" />Gaming</a>
+        <a><img class="icon" style="--source: url(../Media/icons/category_food.svg)" />Food</a>
+        <a> <img class="icon" style="--source: url(../Media/icons/category_music.svg)" />Music</a>
+        <a><img class="icon" style="--source: url(../Media/icons/category_finance.svg)" />Finance</a>
+        <a><img class="icon" style="--source: url(../Media/icons/category_art.svg)" />Art</a>
+      </dropdown>
+      <a href="../settings.html"><img class="icon" style="--source: url(../Media/icons/settings.svg)" />Settings</a>
+      <a class="loggedin" onclick="logout(false)"><img class="icon" style="--source: url(../Media/icons/logout.svg)" />Logout</a>
+    </pages>
   </sidepanel>
-
   <pagedesktop>
   <container class="type2 big">
     <pfp></pfp>
@@ -67,13 +87,4 @@
   <p></p>
  </menu>
 </body>
-<script src="../Scripts/theme.js"></script>
-<script src="../Scripts/banano.js"></script>
-<script src="../Scripts/video.min.js"></script>
-<script src="../Scripts/menu.js"></script>
-<script src="../Scripts/encoder-decoder.js"></script>
-<script src="../Scripts/upload.js"></script>
-<script src="../Scripts/read.js"></script>
-<script src="../Scripts/account.js"></script>
-<script src="../Scripts/videos.js"></script>
 </html>
