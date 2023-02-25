@@ -2033,7 +2033,7 @@ window.bananocoin.bananojs.https.request = (
 
     exports.hash = function(msg) {
       checkArrayTypes(msg);
-      const h = new Uint8Array(crypto_hash_BYTES);
+      const h = new Uint8Array(crypto_hash_BYTES);''
       crypto_hash(h, msg, msg.length);
       return h;
     };
@@ -3758,8 +3758,6 @@ const getBlock = async (hash) => {
       console.log(`STARTED getPublicAccountID ${publicKey}`);
     }
     const accountAddress = getAccount(publicKey, accountPrefix);
-
-    /* istanbul ignore if */
     if (LOG_SEND) {
       console.log(`STARTED getAccountInfo ${destAccount} ${amountRaw}`);
     }

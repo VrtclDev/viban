@@ -1,4 +1,3 @@
-var root = document.querySelector(":root")
 var themes = {
   "default": [
     "--background:#0E1420",
