@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="fonts/ico.css">
+</head>
+  <script src="../Scripts/frontend/menuService.js"></script>
+  <script src="../Scripts/frontend/themeService.js"></script>
+  <script src="../Scripts/viban-api/ban.js"></script>
+  <script src="../Scripts/viban-api/messageService.js"></script>
+  <script src="../Scripts/viban-api/uploadService.js"></script>
+  <script src="../Scripts/frontend/accountService.js"></script>
+  <script src="../Scripts/frontend/init.js"></script>
+<body>
+  <cntnr t="1">
+  <t>Welcome to ViBAN!</t>
+  <br>
+  <btn t="1" onclick="newAccPrompt()">Create Account</btn>
+  <br>
+  <btn t="1">Import</btn><br>
+  <a href="/home.html">Continue As Guest</a>
+  </cntnr>
+  <vgap/>
+  <cntnr t="2">
+    <div>
+    <t>What is this?</t><br>
+    <inf>ViBAN is an open-source Social Media based on the <a href="https://banano.cc">Banano crypto-currency</a></inf>
+    </div>
+    <div>
+      <t>Links And Socials</t><br>
+      <inf>Join the community!</inf><br>
+      <inf>Github: <a href="https://github.com/VrtclDEV/viban">ViBAN Repo</a></inf><br>
+      <inf>Discord: <a href="https://discord.gg/WAvdCWN6z3">Join Server</a></inf>
+    </div>
+  </cntnr><br>
+  <br><br><br>
+  <shadow hide="y"></shadow>
+  <menu t="1" id="popup-menu" hide="y">
+    <t>Import Seed</t><br>
+    <inf>Text</inf>
+    <vgap></vgap>
+    <btns class="menubtns">
+      <btn t="n">No (N)</btn>
+      <btn t="y">Yes (Y)</btn>
+    </btns>
+  </menu>
+  <nav>
+    <i class="icon-menu" onclick="navigate()"></i>
+    <logo></logo>
+  </nav>
+  <navmenu>
+    <a loggedin="y" hide="y"><pfp></pfp><inf>0.00 Ban</inf></a>
+    <a href="/home.html"><i class="icon-home"></i>&nbsp;&nbsp;Home</a>
+    <a href="/account.html" loggedin="y" hide="y"><i class="icon-user"></i>&nbsp;&nbsp;Account</a>
+    <a loggedout="y" href="/"><i class="icon-key"></i>&nbsp;&nbsp;Login/Register</a>
+    <a href="/settings.html"><i class="icon-equalizer"></i>&nbsp;&nbsp;Settings</a>
+    <a loggedin="y" hide="y" onclick="logout(false)"><i class="icon-exit"></i>&nbsp;&nbsp;Logout</a>
+  </navmenu>
+</body>
+</html>

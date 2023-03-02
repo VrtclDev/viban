@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../fonts/ico.css">
+</head>
+<script src="../Scripts/frontend/menuService.js"></script>
+<script src="../Scripts/frontend/accountService.js"></script>
+<script src="../Scripts/frontend/themeService.js"></script>
+<script src="../Scripts/frontend/videoService.js"></script>
+<script src="../Scripts/frontend/init.js"></script>
+<body class="video-page">
+  <videocontainer>
+  <video src="ban.mp4" onclick="toggleControls(this)"></video>
+  <i class="big-play icon-play" onclick="togglePlay(this)"></i>
+  <controlbar>
+    <time>0:00</time>
+    <prgrs class="r"><prgrs class="full"></prgrs></prgrs>
+    <right>
+      <i class="icon-cog"></i>
+      <i class="icon-enlarge" onclick="toggleFs(this)"></i>
+    </right>
+  </controlbar>
+  </controls>
+  </videocontainer>
+  <gap t="1"></gap>
+  <cntnr t="3">
+  <t>Untitled</t><br>
+  <inf>0 Seconds Ago</inf>
+  <hr>
+  <inf>No Description set...</inf>
+  <vgap></vgap>
+  <profile>
+    <pfp></pfp>
+    <p>ban_</p>
+  </profile>
+  <options>
+    <btn class="icon-share"></btn>
+    <btn class="icon-flag"></btn>
+    <btn class="icon-heart"></btn>
+    <btn class="icon-download"></btn>
+  </options><br>
+  <vgap></vgap><vgap></vgap>
+  <input placeholder="Comment..." type="text" t="1"/>
+  </cntnr>
+  <br><br><br>
+  <nav>
+    <i class="icon-menu" onclick="navigate()"></i>
+    <logo></logo>
+  </nav>
+  <navmenu>
+    <a loggedin="y" hide="y"><pfp></pfp><inf>0.00 Ban</inf></a>
+    <a href="/home.html"><i class="icon-home"></i>&nbsp;&nbsp;Home</a>
+    <a href="/account.html" loggedin="y" hide="y"><i class="icon-user"></i>&nbsp;&nbsp;Account</a>
+    <a loggedout="y" href="/"><i class="icon-key"></i>&nbsp;&nbsp;Login/Register</a>
+    <a href="/settings.html"><i class="icon-equalizer"></i>&nbsp;&nbsp;Settings</a>
+    <a loggedin="y" hide="y" onclick="logout(false)"><i class="icon-exit"></i>&nbsp;&nbsp;Logout</a>
+  </navmenu>
+</body>
+</html>
