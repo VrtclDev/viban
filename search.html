@@ -18,22 +18,24 @@
   <script src="../Scripts/viban-api/scrapeService.js"></script>
   <script src="../Scripts/frontend/accountService.js"></script>
   <script src="../Scripts/frontend/init.js"></script>
-<body class="feed-page">
+<body class="search-page">
   <cntnr t="3"><br>
-  <t>Recommended for you</t><br><br>
+  <t>Search</t><br><br>
+  <input oninput="search()" id="search" type="text" placeholder="Whats on your mind?"><br><br>
+  <p>Search results:</p><br>
+  <inf id="no-videos">No videos found...</inf>
   </cntnr>
-  <videos>
-    <post t="video" hide="y" id="feed-video">
-      <thumbnail></thumbnail>
-      <flx>
+  <post t="video" hide="y" id="feed-video">
+    <thumbnail></thumbnail>
+    <flx>
       <pfp></pfp>
       <div>
-      <p>Untitled</p>
-      <inf>ban_ - 2 minutes ago</inf>
+        <p>Untitled</p>
+        <inf>ban_ - 2 minutes ago</inf>
       </div>
-      </flx>
-    </post>
-    </videos>
+    </flx>
+  </post>
+  <videos></videos>
   <br><br><br>
   <nav>
     <i class="icon-menu" onclick="navigate()"></i>

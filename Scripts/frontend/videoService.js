@@ -123,3 +123,29 @@ const addVideo = (j) => {
 const loadVideos = () => {
   for (i in posts) addVideo(posts[i])
 }
+const search = () => {
+  let x = 0
+  let search = []
+  for (i in posts) {
+  if (typeof posts[i] != "string") {
+    x++
+    posts[i].id = x
+    search.push(posts[i])
+  }
+  }
+  let miniSearch = new MiniSearch({
+    fields: ["P1", "P2"],
+    storeFields: ["title", "description"]
+  })
+  miniSearch.addAll(search)
+  document.body.querySelector("videos").innerHTML = ""
+  let results = miniSearch.search(document.body.querySelector("#search").value, { fuzzy: 0.2, prefix:true})
+  for (i in results) {
+    const c = search.filter(function(item) {
+    return item.id == results[i].id;
+    })
+    addVideo(c[0])
+  }
+  document.body.querySelector("#no-videos").setAttribute("hide", "y")
+  if (results.length == 0) document.body.querySelector("#no-videos").setAttribute("hide", "")
+}
