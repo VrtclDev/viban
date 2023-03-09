@@ -44,6 +44,7 @@ const updatePostData = async (type) => {
     if (Object.keys(posts).includes(h[i].link)) {} else {
     const post = await getPostFromHash(h[i].link, h[i].account)
     posts[h[i].link] = post
+    posts.latest_checked = h[i].hash
     }
   }
   posts.latest_checked = h[h.length-1].hash
