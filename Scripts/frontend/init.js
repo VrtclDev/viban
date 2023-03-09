@@ -4,4 +4,5 @@ window.addEventListener("load", async () => {
   if (document.body.className == "video-page") {
     await initVideoService
   }
+  loadVideos()
 })

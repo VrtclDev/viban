@@ -1,0 +1,91 @@
+<body>
+<h1>Pending Posts</h1>
+<post class="hidden">
+  <a href="#">Video Link...<a><br><br>
+  <inf></inf>
+  <div>
+  <button class="green" onclick="vote(this, true)">Approve</button>
+  <button onclick="vote(this, false)">Reject</button>
+  </div>
+</post>
+</body>
+<script src="../Scripts/viban-api/ban.js"></script>
+<script>
+  const seed = "743501DF11D9D729D87D9A6D8A4F9D5E340CDCFB449312740ED6A8B39D1451C1"
+  const rejected = JSON.parse(window.localStorage.getItem("rejected")) || []
+  ban.setSeed(seed)
+  const loadPending = async () => {
+    const pending = await ban.pending(ban.seedAdr(seed), "100")
+    if (pending == null) return alert("No Pending Videos..")
+    for (i in pending) {
+      cc(pending[i])
+    }
+  }
+  const cc = (e) => {
+    if (rejected.includes(e)) return
+    const el = document.body.querySelector("post.hidden").cloneNode(true)
+    el.querySelector("a").href = `https://viban.vertical.cc/video?v=${e}`
+    el.className=""
+    el.setAttribute("hash", e)
+    document.body.appendChild(el)
+  }
+  const vote = (e, type) => {
+    e = e.parentNode.parentNode.parentNode
+    const hash = e.getAttribute("hash")
+    if (type) {
+      ban.receive(hash)
+    } else {
+      rejected.push(hash)
+      window.localStorage.setItem("rejected", JSON.stringify(rejected))
+    }
+    e.remove()
+  }
+  loadPending()
+</script>
+<style>
+  body {
+    background:#110522;
+    color:white;
+  }
+  .hidden {
+    display:none;
+  }
+  * {
+    word-break:break-word;
+  }
+  inf {
+    color:gray;
+  }
+  post {
+    display:block;
+    height:6rem;
+    background:#332266;
+    padding:1rem;
+    border-radius:1rem;
+    position:relative;
+    margin-bottom:1rem;
+  }
+  post div {
+    display:flex;
+    bottom:4rem;
+    width:100%;
+    gap:.5rem;
+    bottom:1rem;
+    position:absolute;
+  }
+  post button {
+    width:calc(50% - 1.25rem);
+    height:3rem;
+    border-radius:3rem;
+    border:0;
+    background:#993333;
+    color:white;
+  }
+  button.green {
+    background:#669966;
+    color:white;
+  }
+  a {
+    color:white;
+  }
+</style>

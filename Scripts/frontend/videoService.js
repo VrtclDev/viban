@@ -75,6 +75,31 @@ const neatTime = (time) => {
  	  return `${hours}:${minutes}:${seconds}`;
   }
 }
+function timeSince(ts) {
+  var timeStamp = new Date(parseInt(ts) * 1000)
+  var now = new Date(),
+    secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+  if (secondsPast >= 31540000) {
+    if (parseInt(secondsPast / 31540000) == 1) return parseInt(secondsPast / 31540000) + ' Year ago';
+    return parseInt(secondsPast / 31540000) + ' Years ago';
+  }
+  if (secondsPast >= 86400) {
+    if (parseInt(secondsPast / 86400) == 1) return parseInt(secondsPast / 86400) + ' Day ago';
+    return parseInt(secondsPast / 86400) + ' Days ago';
+  }
+  if (secondsPast <= 86400) {
+    if (parseInt(secondsPast / 3600) == 1) return parseInt(secondsPast / 3600) + ' Hour ago';
+    return parseInt(secondsPast / 3600) + ' Hours ago';
+  }
+  if (secondsPast <= 3600) {
+    if (parseInt(secondsPast / 60) == 1) return parseInt(secondsPast / 60) + ' Minute ago';
+    return parseInt(secondsPast / 60) + ' Minutes ago';
+  }
+  if (secondsPast <= 60) {
+    if (parseInt(secondsPast == 1)) return parseInt(secondsPast) + ' Second ago';
+    return parseInt(secondsPast) + ' Seconds ago';
+  }
+}
 const updateProgress = (e) => {
 	progressFill.style.width = `${video.currentTime/video.duration*100}%`;
 	textCurrent.innerHTML = `${neatTime(video.currentTime)} / ${neatTime(video.duration)}`;
@@ -86,6 +111,15 @@ const setProgress = (e) => {
 	textCurrent.innerHTML = `${neatTime(video.currentTime)} / ${neatTime(video.duration)}`;
 	startControlTimeout()
 }
-const addVidToFeed = (j) => {
-  
+const addVideo = (j) => {
+  if (typeof j == "string") return
+  const el = document.body.querySelector("#feed-video").cloneNode(true)
+  el.querySelector("p").innerText = j.P1
+  el.querySelector("inf").innerText = `• ${(j.author).slice(0,12)}... - ${timeSince(j.timestamp)}`
+  el.querySelector("pfp").style.background = `url(https://monkey.banano.cc/api/v1/monkey/${j.author})`
+  el.setAttribute("hide", "")
+  document.body.querySelector("videos").appendChild(el)
+}
+const loadVideos = () => {
+  for (i in posts) addVideo(posts[i])
 }

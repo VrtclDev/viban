@@ -2,14 +2,13 @@
 //For posts:
 //P1 = TITLE
 //P2 = DESCRIPTION
-//P3 = MEDIA
-//P4 = TAGS
+//P3 = MEDIA (seperated by ",")
+//P4 = TAGS (seperated by ",")
 //P5 = CATEGORY
-//P6 = NSFW=ENABLED (ooh sexy)
+//P6 = NSFW (ooh sexy)
 //For profile changes
-//P1 = NICKNAME
+//P1 = NICKNAME (Must be sent in 1 block, no rep change)
 //P2 = BIO
-//P3 = PFP
 let useEmotes = false
 const encodeUTF8 = (s) => {
   return unescape(encodeURIComponent(s));
@@ -25,7 +24,7 @@ const encodeMSG = (tmp) => {
   }
   str = str.match(/.{64}|.{1,64}/g);
   str[str.length-1] = str[str.length-1].padStart(64, "0")
-  return str.join("")
+  return str
 }
 const decodeMSG = (hex) => {
   let str = '';
@@ -33,18 +32,20 @@ const decodeMSG = (hex) => {
     let v=parseInt(hex.substr(i, 2), 16);
     if (v)str+=String.fromCharCode(v);
   }
+  try {
+    JSON.parse(`["${str}"]`)
+  } catch {
+    return ""
+  }
   return str
 }
-const parseToJSON = (msg) => {
+const msgToJSON = (msg) => {
   msg = msg.replaceAll("\\:", "™%°=").split(":")
   let json = {}
-  for (i in msg) if (msg[i]!="") json[`P${parseInt(i)+1}`] = msg[i].replaceAll("™%°=", ":")
+  for (i in msg) {
+    if (msg[i]!="") json[`P${parseInt(i)+1}`] = msg[i].replaceAll("™%°=", ":")
+  }
   return json
-}
-const makeInstructions = (list)  => {
-  list=list.join(":")
-  console.log(list)
-    return encodeMSG(list)
 }
 const b64toH = (e) => {
   const raw = atob(e);

@@ -248,7 +248,7 @@
   function blake2b(input, key, outlen) {
   // preprocess inputs
     outlen = outlen || 64;
-    input = util.normalizeInput(input);
+    input = window.blakejsUtil.normalizeInput(input);
 
     // do the math
     const ctx = blake2bInit(outlen, key);
@@ -266,7 +266,7 @@
   // - outlen - optional output length in bytes, default 64
   function blake2bHex(input, key, outlen) {
     const output = blake2b(input, key, outlen);
-    return util.toHex(output);
+    return window.blakejsUtil.toHex(output);
   }
 
 
@@ -1898,11 +1898,14 @@
   }
 })();
 // FINISHED BOTTOM nodejs/browser hack
-const prefix = "ban_"
-var node = "https://kaliumapi.appditto.com/api"
-var pow = "https://pow.nano.to/"
-const util = window.blakejsUtil
+(function () {
 const blake = window.blakejs
+const util = window.blakejsUtil
+const prefix = "ban_"
+let node = "https://booster.dev-ptera.com/banano-rpc"
+let pow = "https://nault.nanos.cc/proxy"
+let default_rep = "ban_1ka1ium4pfue3uxtntqsrib8mumxgazsjf58gidh1xeo5te3whsq8z476goo"
+let user_seed, user_priv, user_adr
 const uint5ToUint4 = (uint5) => {
   const length = (uint5.length / 4) * 5
   const uint4 = new Uint8Array(length)
@@ -2117,7 +2120,7 @@ const PrivateKeyPair = (p) => {
 const getAdr = (p) => {
   return prefix+getSuffix(p)
 }
-const getSeedAdr = (s, i=0) => {
+const seedAdr = (s, i=0) => {
   const privKey = privateKey(s,i)
   const keypair = PrivateKeyPair(privKey);
   return getAdr(bytesToHex(keypair.publicKey));
@@ -2162,15 +2165,15 @@ const nodeAPI = async (d) => {
   return res.json()
 }
 const toRaw = (r) => {
-  return Big('100000000000000000000000000000').times(Big(r)).toString()
+  return (Big('100000000000000000000000000000').times(Big(r))).toString()
 }
 const fromRaw = (r) => {
-  return Big(r).times(Big('0.00000000000000000000000000001')).toString()
+  return (Big(r).times(Big("0.00000000000000000000000000001"))).toString()
 }
 const accInfo = async (a) => {
   return await nodeAPI({action:'account_info', account:a})
 }
-const accHistory = async (a, c="-1", raw, head, offset, filter) => {
+const accHistory = async (a, c="-1", raw, head, reverse, offset, filter, threshold) => {
   var body = {
     action:"account_history",
     account:a,
@@ -2188,17 +2191,33 @@ const accHistory = async (a, c="-1", raw, head, offset, filter) => {
   if (head != null) {
     body.head = head
   }
+  if (filter != null) {
+    body.account_filter = filter
+  }
+  if (threshold != null) {
+    body.threshold = threshold
+  }
+  if (reverse != null) {
+    body.reverse = reverse
+  }
   return nodeAPI(body)
 }
 const pendingBlocks = async (a, c="-1", s=false) => {
-  return (await nodeAPI({action:"accounts_pending", accounts:[a], count:c, source:s},))["blocks"][a]
+  return (await nodeAPI({action:"accounts_pending", accounts:[a], count:c,source:s})).blocks[a]
 }
 const blockInfo = async (hash) => {
   return await nodeAPI({action:"block_info", hash:hash, json_block:true})
 }
 const blockAcc = async (hash) => {
-  return (await nodeAPI({action:"block_account", hash:hash}))["account"]
+  return (await nodeAPI({action:"block_account", hash:hash})).account
 }
+const accBal = async (acc) => {
+  return (await nodeAPI({action:"account_balance", account:acc})).balance
+}
+const successors = async (hash, c) => {
+  return (await nodeAPI({action: "successors", count:c, block:hash}))
+}
+
 const preamble = "0000000000000000000000000000000000000000000000000000000000000006";
 const hashBlock = (block) => {
   const context = blake.blake2bInit(32, null);
@@ -2210,47 +2229,168 @@ const hashBlock = (block) => {
   blake.blake2bUpdate(context, hexToUint8(block.link));
   return uint8ToHex(blake.blake2bFinal(context))
 }
-const withdraw = async (priv, to, amnt, raw=false, rep="ban_1ka1ium4pfue3uxtntqsrib8mumxgazsjf58gidh1xeo5te3whsq8z476goo") => {
-  if (!raw) {
-    amnt = toRaw(amnt)
-  }
-  var s = privAdr(priv)
-  const info = await nodeAPI({action:"account_info", account:s})
-  bal = Big(info["balance"]).minus(amnt).toString()
-  let padBal = parseInt(bal).toString(16);
-  while (padBal.length < 32) {
-    padBal = '0' + padBal;
-  }
-  if (bal.startsWith("-")) {
-    return new Error("insufficient_funds")
-  }
+const withdraw = async (to, amnt, rep=default_rep) => {
+  const s = publicKey(user_adr)
+  const info = await accInfo(getAdr(s))
+  let bal = BigInt(info["balance"]) - BigInt(toRaw(amnt))
+  let padBal = bal.toString(16).padStart(32, "0")
   var block = {
     type:"state",
-    account:publicKey(s),
+    account:s,
     previous:info["frontier"],
-    representative:rep,
+    representative:publicKey(rep),
     balance:padBal,
     link:publicKey(to),
     signature:"",
-    work:""
+    work:"",
   }
-  const signature = signHash(priv, hashBlock(block))
-  const work = await genWork(block.previous)
-  block.account = s
-  block.representative = getAdr(block.representative)
-  block.balance = bal
-  block.work = work.response.work
+  const signature = signHash(user_priv, hashBlock(block)), work = await genWork(block.previous)
+  block.account = getAdr(s)
+  block.representative = rep
+  block.balance = bal.toString()
+  block.work = work.work
   block.signature = signature
-  return await nodeAPI({action:"process", json_block:"true", subtype:"send", block:block})
+  block.link = to
+  console.log(block)
+  return await nodeAPI({ action: "process", json_block: "true", subtype:"send", block:block })
 }
-const deposit = async (priv) => {
-  const s = privAdr(priv)
-  const pending = await pendingBlocks(s,"-1", true)
+const deposit = async (rep=default_rep) => {
+  const s = publicKey(privAdr(user_priv))
+  const pending = await pendingBlocks(getAdr(s),"-1", true)
   if (pending == undefined) {
     return "No pending blocks..."
   }
   var hashes = []
+  console.log(pending)
   for (i in pending) {
-    console.log(pending[i])
+    const info = await accInfo(getAdr(s))
+    let bal = BigInt(info["balance"] || "0") + BigInt(pending[i]["amount"])
+    let padBal = bal.toString(16).padStart(32, "0")
+    var block = {
+      type:"state",
+      account:s,
+      previous:info["frontier"] || "0".repeat(64),
+      representative:publicKey(rep),
+      balance:padBal,
+      link:i,
+      signature:"",
+      work:"",
+    }
+    const signature = signHash(user_priv, hashBlock(block))
+    let work
+    if (block.previous == "0".repeat(64)) {
+      work = await genWork(s)
+    } else {
+      work = await genWork(block.previous)
+    }
+    block.account = getAdr(s)
+    block.representative = rep
+    block.balance = bal.toString()
+    block.work = work.work
+    block.signature = signature
+    hashes.push((await nodeAPI({ action: "process", json_block: "true", subtype:"receive", block:block })).hash)
   }
+  return hashes
 }
+const receive = async (b, rep=default_rep) => {
+  const s = publicKey(privAdr(user_priv))
+  const info = await accInfo(getAdr(s))
+  const bl = await blockInfo(b)
+  let bal = BigInt(info["balance"] || "0") + BigInt(bl.amount)
+  let padBal = bal.toString(16).padStart(32, "0")
+  var block = {
+    type:"state",
+    account:s,
+    previous:info["frontier"] || "0".repeat(64),
+    representative:publicKey(rep),
+    balance:padBal,
+    link:b,
+    signature:"",
+    work:"",
+  }
+  const signature = signHash(user_priv, hashBlock(block))
+  let work
+  if (block.previous == "0".repeat(64)) {
+    work = await genWork(s)
+  } else {
+    work = await genWork(block.previous)
+  }
+  block.account = getAdr(s)
+  block.representative = rep
+  block.balance = bal.toString()
+  block.work = work.work
+  block.signature = signature
+  console.log(block)
+  return await nodeAPI({ action: "process", json_block: "true", subtype:"receive", block:block }).hash
+}
+const change = async (rep=default_rep) => {
+  const s = publicKey(privAdr(user_priv))
+  const info = await accInfo(getAdr(s))
+  let bal = BigInt(info["balance"])
+  let padBal = bal.toString(16).padStart(32, "0")
+  var block = {
+    type:"state",
+    account:s,
+    previous:info["frontier"],
+    representative:publicKey(rep),
+    balance:padBal,
+    link:"0".repeat(64),
+    signature:"",
+    work:"",
+  }
+  const signature = signHash(user_priv, hashBlock(block)), work = await genWork(block.previous)
+  block.account = getAdr(s)
+  block.representative = rep
+  block.balance = bal.toString()
+  block.work = work.work
+  block.signature = signature
+  return await nodeAPI({ action: "process", json_block: "true", subtype:"change", block:block })
+}
+const setSeed = (seed, i=0) => {
+  user_seed=seed,user_priv=privateKey(seed, i),user_adr=privAdr(user_priv)
+  return userInfo()
+}
+const userInfo = () => {
+  return [user_seed, user_priv, user_adr]
+}
+const setNode = (n, p) => {
+  node = n || node, pow = p || pow
+  return [node, pow]
+}
+const retrieveSeed = (u="", p="", c="") => {
+  //u = username
+  //p = password
+  //c = pincode, hexadecimal padded
+  return privateKey(`${u.toLowerCase()}:${p}:${c.toString(16).padStart(32, "0").toUpperCase()}`)
+}
+
+const exports = (() => {
+  const exports = {};
+  exports.withdraw = withdraw
+  exports.deposit = deposit
+  exports.receive = receive
+  exports.change = change
+  exports.pubAdr = getAdr
+  exports.adrPub = publicKey
+  exports.seedPriv = privateKey
+  exports.seedAdr = seedAdr
+  exports.privAdr = privAdr
+  exports.genSeed = genSeed
+  exports.balance = accBal
+  exports.successors = successors
+  exports.info = accInfo
+  exports.pending = pendingBlocks
+  exports.blockAcc = blockAcc
+  exports.blockInfo = blockInfo
+  exports.history = accHistory
+  exports.setSeed = setSeed
+  exports.userInfo = userInfo
+  exports.setNode = setNode
+  exports.toRaw = toRaw
+  exports.fromRaw = fromRaw
+  exports.callNode = nodeAPI
+  return exports
+})()
+window.banjs = exports
+})()
+const ban = window.banjs

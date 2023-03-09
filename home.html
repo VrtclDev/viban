@@ -8,11 +8,15 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="fonts/ico.css">
 </head>
-<script src="../Scripts/frontend/menuService.js"></script>
-<script src="../Scripts/frontend/accountService.js"></script>
-<script src="../Scripts/frontend/themeService.js"></script>
-
-<script src="../Scripts/frontend/init.js"></script>
+  <script src="../Scripts/frontend/menuService.js"></script>
+  <script src="../Scripts/frontend/themeService.js"></script>
+  <script src="../Scripts/frontend/videoService.js"></script>
+  <script src="../Scripts/viban-api/ban.js"></script>
+  <script src="../Scripts/viban-api/messageService.js"></script>
+  <script src="../Scripts/viban-api/uploadService.js"></script>
+  <script src="../Scripts/viban-api/scrapeService.js"></script>
+  <script src="../Scripts/frontend/accountService.js"></script>
+  <script src="../Scripts/frontend/init.js"></script>
 <body>
   <cntnr t="3"><br>
   <t>Recommended for you</t><br><br>
@@ -35,7 +39,7 @@
     <logo></logo>
   </nav>
   <navmenu>
-    <a loggedin="y" hide="y"><pfp></pfp><inf>0.00 Ban</inf></a>
+    <a loggedin="y" hide="y"><pfp></pfp><inf><span class="bal"></span> Ban</inf></a>
     <a href="/home.html"><i class="icon-home"></i>&nbsp;&nbsp;Home</a>
     <a href="/account.html" loggedin="y" hide="y"><i class="icon-user"></i>&nbsp;&nbsp;Account</a>
     <a loggedout="y" href="/"><i class="icon-key"></i>&nbsp;&nbsp;Login/Register</a>

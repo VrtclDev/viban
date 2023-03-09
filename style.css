@@ -38,13 +38,13 @@ vgap {
   display:block;
   margin-top:1rem;
 }
+pgap {
+  display:block;
+  margin-top:5rem;
+}
 gap[t="1"] {
   display:block;
   margin-top:.5rem;
-}
-gap[t="2"] {
-  display: block;
-  margin-top: 1rem;
 }
 inf {
   color:var(--soft);
@@ -299,7 +299,7 @@ hr {
   width:calc(100% - 1rem);
   margin-left:-0rem;
 }
-input[type="text"] {
+input[type="text"], input[type="number"] {
   border:0;
   background:var(--background-dark);
   width:calc(100% - 2rem);
@@ -315,7 +315,7 @@ menu[t="1"] {
   display:block;
   position:fixed;
   width:calc(75% - 1.25rem);
-  height:75%;
+  height:min(75%, 24rem);
   background:var(--background);
   top:50%;
   left:50%;
@@ -326,27 +326,43 @@ menu[t="1"] {
   padding-right:1.25rem;
   padding-top:.8rem;
   border-radius:1rem;
-  overflow:scroll;
+  overflow:hidden;
+  overflow-y:scroll;
   transition:.25s;
 }
 menu[t="1"] vgap {
   margin-top:5rem;
 }
-btns.menubtns {
+menu[t="1"] field {
+  display:flex;
+  align-items:center;
+  gap:.5rem
+}
+menu[t="1"] field input[type="number"] {
+  width:3rem;
+  padding-left:.5rem;
+  padding-right:.5rem;
+  text-align:center;
+}
+menu[t="1"] field p {
+  color:var(--text);
+  font-size:.9rem;
+  width:4rem;
+}
+menu btns {
   display:flex;
   position:fixed;
-  bottom:1rem;
+  margin-top:calc(min(37.5vh, 12rem) - 2.25rem);
   height:4rem;
   top:50%;
   left:50%;
-  margin-top:calc(37.5vh - 2.25rem);
   transform:translate(-50%,-50%);
   margin-left:.75rem;
   width:100%;
   gap:.5rem;
   z-index:6;
 }
-btns.menubtns btn {
+menu btns btn, cntnr[t="4"] btn {
   display:grid;
   place-items:center;
   width:calc(50% - 1rem);
@@ -364,6 +380,46 @@ shadow {
   opacity:0.7;
   transition:.25s;
 }
+.bal::before {
+  content:var(--bal);
+}
+.adr::before {
+  content:var(--adr);
+}
+cntnr[t="4"] {
+  display:block;
+  width:min(calc(100% - 3rem), 32rem);
+  height:auto;
+  background:var(--background-dark);
+  border-radius:1rem;
+  padding:1rem;
+  min-height:6.5rem;
+  position:relative;
+}
+cntnr[t="4"] btn {
+  position:relative;
+  height:4rem;
+  border-radius:.5rem;
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+cntnr[t="4"] btn.icon {
+  padding-left:1rem;
+}
+cntnr[t="4"] btn i {
+  position:absolute;
+  left:1rem;
+}
+cntnr flx {
+  display:flex;
+  gap:1rem;
+  margin-top:1rem;
+  bottom:1rem;
+  position:absolute;
+  width:calc(100% - 2rem);
+}
 @keyframes spin {
   from {
     transform:rotate(0deg);
@@ -371,6 +427,15 @@ shadow {
   to {
     transform:rotate(360deg);
   }
+}
+adr {
+  display:block;
+  background:var(--background-dark);
+  padding:.5rem;
+  border-radius:.5rem;
+}
+adr span {
+  color:var(--soft-href);
 }
 :root {
   --background:#F9F9FF;
@@ -380,5 +445,6 @@ shadow {
   --soft:#6E6E75;
   --soft-href:#6E6E75;
   --video-bg:#0D0D14;
-  --pfp:url(https://monkey.banano.cc/api/v1/monkey/ban_1ka1ium4pfue3uxtntqsrib8mumxgazsjf58gidh1xeo5te3whsq8z476goo)
+  --bal:"0.00";
+  --adr:"ban_"
 }

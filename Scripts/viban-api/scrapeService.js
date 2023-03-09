@@ -1,26 +1,58 @@
-const getPostFromHash = async (hash) => {
-  var author = (await blockAcc(hash))["account"]
-  var b = await accHistory(author, "1", hash, true)
-  b = b["history"][0]
-  var previous = b["previous"]
-  var finish = false
-  var res = []
-  while (!finish) {
-    finish = true
-    var h = await accHistory(author, "1", previous, true)
-    var block = h["history"][0]
-      previous = block["previous"]
-    if (block["subtype"] == "change") {
-      res.push(block["representative"])
-      finish = false  
-    } else if (block["subtype"] == "send" || previous == "0".repeat(64))  {
-        finish = true
-        res = convert(res)[0]
-        res["hash"] = hash
-        res["author"] = author
-        res["timestamp"] = b["local_timestamp"]
-        resolve(res)
+let posts = JSON.parse(window.localStorage.getItem("viban-post-data")) || {latest_checked:null}
+const getPostFromHash = async (hash, author) =>  {
+  if (author == null) author = await ban.blockAcc(hash)
+  const h = (await ban.history(null, "1", true, hash)).history[0]
+  if (h.subtype == "receive") return {}
+  const rep = h.representative
+  let res = [decodeMSG(ban.adrPub(rep))]
+  if (res.join("").length < 32) {
+    res = msgToJSON(res.join(""))
+    res.author = author
+    res.timestamp = h.local_timestamp
+    res.hash = hash
+    return res
+  }
+  let previous = h.previous
+  let finished = false
+  while (!finished) {
+    finished = true
+    const history = (await ban.history(null, "1", true, previous)).history[0]
+    previous = history.previous
+    const st = history.subtype
+    if (st == "send" || history.previous == "0".repeat(64)) {
+      res = msgToJSON(res.join(""))
+      res.author = author
+      res.timestamp = h.local_timestamp
+      res.hash = hash
+      return res
+    } else {
+      res.push(decodeMSG(ban.adrPub(history.representative)))
+      finished = false
     }
   }
-  return promise
+  return
+}
+const getUserPosts = (user) => {
+  
+}
+const updatePostData = async (type) => {
+  let offset = "1"
+  if (posts.latest_checked == null) offset=null
+  const h = (await ban.history(types[type], "-1", true, posts.latest_checked, true, offset)).history
+  if (h == "") return false
+  for (i in h) {
+    if (Object.keys(posts).includes(h[i].link)) {} else {
+    const post = await getPostFromHash(h[i].link, h[i].account)
+    posts[h[i].link] = post
+    }
+  }
+  posts.latest_checked = h[h.length-1].hash
+  window.localStorage.setItem("viban-post-data", JSON.stringify(posts))
+  return true
+}
+const loadFeed = async (type) => {
+  console.log(pending, history)
+}
+const log = async (e) => {
+  console.log(await e)
 }
