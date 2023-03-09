@@ -34,18 +34,17 @@
   </videocontainer>
   <gap t="1"></gap>
   <cntnr t="3">
-  <t>Untitled</t><br>
-  <inf>0 Seconds Ago</inf>
+  <t id="vid-title">Untitled</t><br>
+  <inf id="vid-time">0 Seconds Ago</inf>
   <hr>
-  <inf>No Description set...</inf>
+  <inf id="vid-desc">No Description set...</inf>
   <vgap></vgap>
   <profile>
-    <pfp></pfp>
-    <p>ban_</p>
+    <pfp id="vid-pfp"></pfp>
+    <inf id="vid-author">ban_</inf>
   </profile>
   <options>
-    <btn class="icon-share"></btn>
-    <btn class="icon-flag"></btn>
+    <btn class="icon-share" onclick="shareVideo()"></btn>
     <btn class="icon-heart"></btn>
     <btn class="icon-download"></btn>
   </options><br>
@@ -55,6 +54,7 @@
   <br><br><br>
   <nav>
     <i class="icon-menu" onclick="navigate()"></i>
+    <i class="icon-search" onclick="window.location.href=`${window.location.origin}/search.html`"></i> 
     <logo></logo>
   </nav>
   <navmenu>

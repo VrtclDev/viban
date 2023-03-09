@@ -111,12 +111,23 @@ const setProgress = (e) => {
 	textCurrent.innerHTML = `${neatTime(video.currentTime)} / ${neatTime(video.duration)}`;
 	startControlTimeout()
 }
+
+const loadVideo = async () => {
+  let param = (new URL(window.location).searchParams).get("v")
+  const v = await getPostFromHash(param)
+  document.body.querySelector("#vid-title").innerText = v.P1
+  document.body.querySelector("#vid-desc").innerText = v.P2
+  document.body.querySelector("#vid-author").innerText = v.author.slice(0,12) + "..."
+  document.body.querySelector("#vid-time").innerText = timeSince(v.timestamp)
+  document.body.querySelector("#vid-pfp").style.background = `url(https://monkey.banano.cc/api/v1/monkey/${v.author})`
+}
 const addVideo = (j) => {
   if (typeof j == "string") return
   const el = document.body.querySelector("#feed-video").cloneNode(true)
   el.querySelector("p").innerText = j.P1
   el.querySelector("inf").innerText = `• ${(j.author).slice(0,12)}... - ${timeSince(j.timestamp)}`
   el.querySelector("pfp").style.background = `url(https://monkey.banano.cc/api/v1/monkey/${j.author})`
+  el.querySelector("thumbnail").setAttribute("onclick", `window.location.href="${window.location.origin}/video?v=${j.hash}"`)
   el.setAttribute("hide", "")
   document.body.querySelector("videos").appendChild(el)
 }

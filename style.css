@@ -94,6 +94,10 @@ nav i {
   width:4rem;
   font-size:2rem;
 }
+nav i.icon-search {
+  position:absolute;
+  right:7rem;
+}
 nav logo {
   height:3rem;
   width:6rem;

@@ -4,7 +4,8 @@ window.addEventListener("load", async () => {
   await login()
   await updatePostData("video")
   if (document.body.className == "video-page") {
-    await initVideoService
+    await initVideoService()
+    await loadVideo()
   }
   if (document.body.className == "feed-page") {
     await loadVideos()

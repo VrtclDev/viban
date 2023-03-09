@@ -1,5 +1,6 @@
 let posts = JSON.parse(window.localStorage.getItem("viban-post-data")) || {latest_checked:null}
 const getPostFromHash = async (hash, author) =>  {
+  if (Object.keys(posts).includes(hash)) return posts[hash]
   if (author == null) author = await ban.blockAcc(hash)
   const h = (await ban.history(null, "1", true, hash)).history[0]
   if (h.subtype == "receive") return {}
@@ -43,7 +44,8 @@ const updatePostData = async (type) => {
   for (i in h) {
     if (Object.keys(posts).includes(h[i].link)) {} else {
     const post = await getPostFromHash(h[i].link, h[i].account)
-    posts[h[i].link] = post
+    posts[post.hash] = post
+    console.log(post)
     posts.latest_checked = h[i].hash
     }
   }
