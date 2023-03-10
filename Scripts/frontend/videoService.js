@@ -121,11 +121,12 @@ const setProgress = (e) => {
 const loadVideo = async () => {
   let param = (new URL(window.location).searchParams).get("v")
   const v = await getPostFromHash(param)
-  document.body.querySelector("#vid-title").innerText = v.P1
-  document.body.querySelector("#vid-desc").innerText = v.P2
+  document.body.querySelector("#vid-title").innerText = v.P1 || "Untitled"
+  document.body.querySelector("#vid-desc").innerText = v.P2 || "No Description Set..."
   document.body.querySelector("#vid-author").innerText = v.author.slice(0,12) + "..."
   document.body.querySelector("#vid-time").innerText = timeSince(v.timestamp)
   document.body.querySelector("#vid-pfp").style.background = `url(https://monkey.banano.cc/api/v1/monkey/${v.author})`
+  setVideo("http://"+v.P3.split("|")[0])
 }
 const addVideo = (j) => {
   if (typeof j == "string") return
