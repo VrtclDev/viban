@@ -117,7 +117,6 @@ const setProgress = (e) => {
 	textCurrent.innerHTML = `${neatTime(video.currentTime)} / ${neatTime(video.duration)}`;
 	startControlTimeout()
 }
-
 const loadVideo = async () => {
   let param = (new URL(window.location).searchParams).get("v")
   const v = await getPostFromHash(param)
@@ -129,6 +128,7 @@ const loadVideo = async () => {
   setVideo("http://"+v.P3.split("|")[0])
 }
 const addVideo = (j) => {
+  if (document.body.className!="feed-page") return
   if (typeof j == "string") return
   const el = document.body.querySelector("#feed-video").cloneNode(true)
   el.querySelector("p").innerText = j.P1
@@ -139,6 +139,7 @@ const addVideo = (j) => {
   document.body.querySelector("videos").appendChild(el)
 }
 const loadVideos = () => {
+  if (document.body.className!="feed-page") return
   for (i in posts) addVideo(posts[i])
 }
 const search = () => {

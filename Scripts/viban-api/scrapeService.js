@@ -33,12 +33,15 @@ const updatePostData = async (type) => {
   let offset = "1"
   if (posts.latest_checked == null) offset=null
   const h = (await ban.history(types[type], "-1", true, posts.latest_checked, true, offset)).history
-  if (h == "") return false
+  if (h == "") {
+    loadVideos()
+    return false
+  }
   for (i in h) {
     if (Object.keys(posts).includes(h[i].link)) {} else {
     const post = await getPostFromHash(h[i].link, h[i].account)
     posts[post.hash] = post
-    console.log(post)
+    addVideo(post)
     posts.latest_checked = h[i].hash
     }
   }
