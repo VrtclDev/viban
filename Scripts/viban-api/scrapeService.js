@@ -6,13 +6,6 @@ const getPostFromHash = async (hash, author) =>  {
   if (h.subtype == "receive") return {}
   const rep = h.representative
   let res = [decodeMSG(ban.adrPub(rep))]
-  if (res.join("").length < 32) {
-    res = msgToJSON(res.join(""))
-    res.author = author
-    res.timestamp = h.local_timestamp
-    res.hash = hash
-    return res
-  }
   let previous = h.previous
   let finished = false
   while (!finished) {
@@ -21,7 +14,7 @@ const getPostFromHash = async (hash, author) =>  {
     previous = history.previous
     const st = history.subtype
     if (st == "send" || history.previous == "0".repeat(64)) {
-      res = msgToJSON(res.join(""))
+      res = msgToJSON(res.reverse().join(""))
       res.author = author
       res.timestamp = h.local_timestamp
       res.hash = hash

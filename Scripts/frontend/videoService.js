@@ -13,14 +13,13 @@ const initVideoService = () => {
     playButton.className = "big-play icon-play"
   })
 }
-const togglePlay = (e) => {
-  const v = e.parentNode.querySelector("video")
-  if (v.paused) {
-    v.play()
-    e.className = "big-play icon-pause"
+const togglePlay = () => {
+  if (video.paused) {
+    video.play()
+    playButton.className = "big-play icon-pause"
   } else {
-    v.pause()
-    e.className = "big-play icon-play"
+    video.pause()
+    playButton.className = "big-play icon-play"
   }
   startControlTimeout()
 }
@@ -59,6 +58,13 @@ var isFS = false;
 const toggleFs = () => {
 	isFS? exitFullscreen() : fullscreen(document.body.querySelector("videocontainer"))
 	isFS = !isFS;
+}
+const setVideo = (e) => {
+  console.log(video)
+  video.src = e
+  video.load()
+  video.pause()
+  playButton.className = "big-play icon-play"
 }
 const neatTime = (time) => {
   if(time < 3600) {
@@ -159,4 +165,16 @@ const search = () => {
   }
   document.body.querySelector("#no-videos").setAttribute("hide", "y")
   if (results.length == 0) document.body.querySelector("#no-videos").setAttribute("hide", "")
+}
+const convertYTURL = (u) => {
+  var url = new URL(u)
+  var yt = "https://youtube.com/embed/"
+  if (url.hostname == "youtu.be") {
+    return yt + url.pathname.replace("/", "")
+  } else {
+    if (url.pathname.startsWith("/shorts")) {
+      return yt + url.pathname.split("/")[2]
+    }
+    return yt + url.searchParams.get("v")
+  }
 }
