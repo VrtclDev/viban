@@ -16,6 +16,7 @@ body {
 }
 cntnr[t="1"] {
   display:grid;
+  text-align:center;
   place-items:center;
   padding-top:1rem;
   padding-bottom:2rem;

@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HTML</title>
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../fonts/ico.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="fonts/ico.css">
 </head>
   <script src="../Scripts/libraries/minisearch.js"></script>
   <script src="../Scripts/frontend/menuService.js"></script>
@@ -18,48 +18,11 @@
   <script src="../Scripts/viban-api/scrapeService.js"></script>
   <script src="../Scripts/frontend/accountService.js"></script>
   <script src="../Scripts/frontend/init.js"></script>
-<body class="video-page">
-  <main id="invalid-post">
+<body>
     <cntnr t="1">
     <t>404 - Not found</t>
     <inf>This page may have been moved somewhere else, Or it simply just ceases to exist</inf>
     </cntnr>
-  </main>
-  <main id="valid-post" hide="y">
-  <videocontainer>
-  <video src="ban.mp4" onclick="toggleControls(this)"></video>
-  <i class="big-play icon-play" onclick="togglePlay(this)"></i>
-  <controlbar>
-    <time>0:00</time>
-    <prgrs class="r"><prgrs class="full"></prgrs></prgrs>
-    <right>
-      <i class="icon-cog"></i>
-      <i class="icon-enlarge" onclick="toggleFs(this)"></i>
-    </right>
-  </controlbar>
-  </controls>
-  </videocontainer>
-  <gap t="1"></gap>
-  <cntnr t="3">
-  <t id="vid-title">Untitled</t><br>
-  <inf id="vid-time">0 Seconds Ago</inf>
-  <hr>
-  <inf id="vid-desc">No Description set...</inf>
-  <vgap></vgap>
-  <profile>
-    <pfp id="vid-pfp"></pfp>
-    <inf id="vid-author">ban_</inf>
-  </profile>
-  <options>
-    <btn class="icon-share" onclick="shareVideo()"></btn>
-    <btn class="icon-heart"></btn>
-    <btn class="icon-download"></btn>
-  </options><br>
-  <vgap></vgap><vgap></vgap>
-  <input placeholder="Comment..." type="text" t="1"/>
-  </cntnr>
-  </main>
-  <br><br><br>
   <nav>
     <i class="icon-menu" onclick="navigate()"></i>
     <i class="icon-search" onclick="window.location.href=`${window.location.origin}/search`"></i> 

@@ -60,7 +60,6 @@ const toggleFs = () => {
 	isFS = !isFS;
 }
 const setVideo = (e) => {
-  console.log(video)
   video.src = e
   video.load()
   video.pause()
@@ -119,7 +118,13 @@ const setProgress = (e) => {
 }
 const loadVideo = async () => {
   let param = (new URL(window.location).searchParams).get("v")
-  const v = await getPostFromHash(param)
+  if (param == null) return
+  let v
+  try {
+    v = await getPostFromHash(b64toH(decodeURIComponent(param)))
+  } catch {return}
+  document.body.querySelector("#valid-post").setAttribute("hide", "")
+  document.body.querySelector("#invalid-post").setAttribute("hide", "y")
   document.body.querySelector("#vid-title").innerText = v.P1 || "Untitled"
   document.body.querySelector("#vid-desc").innerText = v.P2 || "No Description Set..."
   document.body.querySelector("#vid-author").innerText = v.author.slice(0,12) + "..."
@@ -134,7 +139,7 @@ const addVideo = (j) => {
   el.querySelector("p").innerText = j.P1
   el.querySelector("inf").innerText = `• ${(j.author).slice(0,12)}... - ${timeSince(j.timestamp)}`
   el.querySelector("pfp").style.background = `url(https://monkey.banano.cc/api/v1/monkey/${j.author})`
-  el.querySelector("thumbnail").setAttribute("onclick", `window.location.href="${window.location.origin}/video?v=${j.hash}"`)
+  el.querySelector("thumbnail").setAttribute("onclick", `window.location.href="${window.location.origin}/video?v=${encodeURIComponent(hToB64(j.hash))}"`)
   el.setAttribute("hide", "")
   document.body.querySelector("videos").appendChild(el)
 }
@@ -179,4 +184,7 @@ const convertYTURL = (u) => {
     }
     return yt + url.searchParams.get("v")
   }
+}
+const goto = (e) => {
+  window.location.href = `http://localhost:7700/${e}.html`
 }
