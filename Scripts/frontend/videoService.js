@@ -133,7 +133,7 @@ const loadVideo = async () => {
   setVideo("http://"+v.P3.split("|")[0])
 }
 const addVideo = (j) => {
-  if (document.body.className!="feed-page") return
+  if (document.body.className!="feed-page" && document.body.className!="search-page") return
   if (typeof j == "string") return
   const el = document.body.querySelector("#feed-video").cloneNode(true)
   el.querySelector("p").innerText = j.P1
